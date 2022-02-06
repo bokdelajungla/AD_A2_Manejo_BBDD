@@ -285,9 +285,9 @@ public class MainPage {
 								System.out.println("********* LISTANDO TODOS LOS COCHES Y SUS PASAJEROS **********");
 								for(Coche coc1 : listaCoches5){
 									System.out.println(coc1);
-									System.out.print("Pasajeros: ");
 									List<Pasajero> listaPasajero3 = dp.listarPasajerosDeUnCoche(coc1.getId());
 									for(Pasajero pas : listaPasajero3){
+										System.out.print("Pasajeros: ");
 										System.out.println(pas);
 									}
 								}
