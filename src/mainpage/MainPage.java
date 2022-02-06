@@ -1,5 +1,25 @@
 package mainpage;
 
+//
+//CREATE TABLE coches ( 
+//id int(11) NOT NULL AUTO_INCREMENT, 
+//matricula varchar(45) DEFAULT NULL, 
+//marca varchar(45) DEFAULT NULL, 
+//modelo varchar(45) DEFAULT NULL,
+//color varchar(45) DEFAULT NULL,
+//PRIMARY KEY (id) );
+//
+//CREATE TABLE pasajeros ( 
+//id int(11) NOT NULL AUTO_INCREMENT, 
+//nombre varchar(45) DEFAULT NULL, 
+//edad int(3) DEFAULT NULL, 
+//peso double DEFAULT NULL,
+//coche int(11) DEFAULT NULL,
+//PRIMARY KEY (id),
+//FOREIGN KEY (coche) REFERENCES coches(id)
+//);
+
+
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -52,7 +72,7 @@ public class MainPage {
 				int idCoche =0;
 				int idPasajero = 0;
 				switch(numero) {
-					case 1: 
+					case 1: // Añadir nuevo coche
 						sc.nextLine();
 						System.out.println("Introduzca los datos del Coche:");
 						System.out.println("Matricula:");
@@ -64,7 +84,6 @@ public class MainPage {
 						System.out.println("Color:");
 						cocheDatos[3] = sc.nextLine();
 						String matricula = cocheDatos[1];
-						System.out.println("Matricula: " + matricula);
 							try {
 								c.setMatricula(cocheDatos[0]);
 								c.setMarca(cocheDatos[1]);
@@ -82,7 +101,7 @@ public class MainPage {
 								break;
 							}
 						break;
-					case 2:
+					case 2: //  Borrar coche por id
 						System.out.println("Introduzca ID");
 						try {
 							idCoche = sc.nextInt();
@@ -97,7 +116,7 @@ public class MainPage {
 							System.out.println("Introduzca un ID válido");
 						}
 						break;
-					case 3:
+					case 3: // Consulta de coche por id"
 						System.out.println("Introduzca ID");
 						try {
 							idCoche = sc.nextInt();
@@ -112,7 +131,7 @@ public class MainPage {
 							System.out.println("Introduzca un ID válido");
 						}
 						break;
-					case 4:
+					case 4: // Modificar coche por id
 						sc.nextLine();
 						System.out.println("Introduzca los datos del Coche:");
 						System.out.println("Id:");
@@ -142,17 +161,17 @@ public class MainPage {
 								break;
 							}
 						break;
-					case 5:
+					case 5: // Listado de coches
 						List<Coche> listaCoches = dc.listar();
 						System.out.println("********* LISTANDO TODOS LOS COCHES **********");
 						for(Coche coc1 : listaCoches){
 							System.out.println(coc1);
 						}
 						break;
-					case 6: 
+					case 6: // Terminar el programa
 						salir = true;
 						break;
-					case 7:
+					case 7: // Gestión de pasajeros
 						System.out.println("GESTIÓN DE PASAJEROS: Escriba el numero con la opción deseada");
 						System.out.println("1 - Añadir nuevo pasajero");
 						System.out.println("2 - Borrar pasajero por id");
@@ -174,7 +193,7 @@ public class MainPage {
 							double peso = 0.00;
 							Pasajero p = new Pasajero();
 							switch (numero2) {
-							case 1:
+							case 1: // Añadir nuevo pasajero
 								sc.nextLine();
 								System.out.println("Introduzca los datos del Pasajero:");
 								System.out.println("Nombre:");
@@ -199,7 +218,7 @@ public class MainPage {
 										break;
 									}
 								break;
-							case 2:
+							case 2: // Borrar pasajero por id
 								System.out.println("Introduzca ID");
 								try {
 									idPasajero = sc.nextInt();
@@ -214,7 +233,7 @@ public class MainPage {
 									System.out.println("Introduzca un ID válido");
 								}
 								break;
-							case 3:
+							case 3: // Consulta de coche por id
 								System.out.println("Introduzca ID");
 								try {
 									idPasajero = sc.nextInt();
@@ -229,14 +248,14 @@ public class MainPage {
 									System.out.println("Introduzca un ID válido");
 								}
 								break;
-							case 4:
+							case 4: // Listado de todos los pasajeros
 								List<Pasajero> listaPasajero = dp.listar();
 								System.out.println("********* LISTANDO TODOS LOS PASAJEROS **********");
 								for(Pasajero pas : listaPasajero){
 									System.out.println(pas);
 								}
 								break;
-							case 5:
+							case 5: // Añadir pasajero al coche
 								System.out.println("5 - Añadir pasajero al coche");
 								List<Coche> listaCoches2 = dc.listar();
 								System.out.println("********* COCHES DISPONIBLES **********");
@@ -261,11 +280,16 @@ public class MainPage {
 								}
 								
 								break;
-							case 6:
-								List<Pasajero> listaPasajero4 = dp.listar();
-								System.out.println("********* LISTANDO TODOS LOS PASAJEROS **********");
-								for(Pasajero pas : listaPasajero4){
-									System.out.println(pas);
+							case 6: // Eliminar pasajero de un coche
+								List<Coche> listaCoches5 = dc.listar();
+								System.out.println("********* LISTANDO TODOS LOS COCHES Y SUS PASAJEROS **********");
+								for(Coche coc1 : listaCoches5){
+									System.out.println(coc1);
+									System.out.print("Pasajeros: ");
+									List<Pasajero> listaPasajero3 = dp.listarPasajerosDeUnCoche(coc1.getId());
+									for(Pasajero pas : listaPasajero3){
+										System.out.println(pas);
+									}
 								}
 								System.out.println("Introduzca ID del pasajero:");
 								try {
@@ -281,7 +305,7 @@ public class MainPage {
 									System.out.println("Introduzca un ID válido");
 								}
 								break;
-							case 7:
+							case 7: // Listar todos los pasajeros de un coche
 								System.out.println("Introduzca ID del coche");
 								try {
 									idCoche = sc.nextInt();

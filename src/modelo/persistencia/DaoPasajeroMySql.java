@@ -41,7 +41,13 @@ public class DaoPasajeroMySql implements DaoPasajero{
 	}
 	
 	
-	
+	/**
+	 * Método que añade un Objeto Pasajero a la BBDD
+	 * @param pasajero el objeto de la clase Pasajero que se quiere añadir a la BBDD
+	 * @return Devuelve true en caso de que el coche se haya podido añadir a la BBDD 
+	 * 		   o false si en algún caso no se puede añadir, ya sea porque no está la conexión abierta 
+	 * 			o no se ha cambiado nada en la BBDD
+	 */
 	@Override
 	public boolean alta(Pasajero p) {
 		if(!abrirConexion()){
@@ -70,7 +76,13 @@ public class DaoPasajeroMySql implements DaoPasajero{
 		
 		return alta;
 	}
-
+	
+	/**
+	 * Método que elimina un objeto Pasajero de la BBDD 
+	 * @param id el ID del coche que se quiere eliminar
+	 * @return true si se elimina de la BBDD o false en caso de que  no exista ningún coche con 
+	 * 		   el ID que se pasa como parámetro.
+	 */
 	@Override
 	public boolean baja(int id) {
 		if(!abrirConexion()){
@@ -96,7 +108,13 @@ public class DaoPasajeroMySql implements DaoPasajero{
 		}
 		return borrado; 
 	}
-
+	
+	/**
+	 * Método para obtener un Pasajero 
+	 * @param el ID del pasajero que queremos buscar
+	 * @return pasajero si existía en la BBDD y null si no se ha podido realizar
+	 * la conexión o si no había ninguno con ese ID
+	 */
 	@Override
 	public Pasajero obtener(int id) {
 		if(!abrirConexion()){
@@ -129,7 +147,10 @@ public class DaoPasajeroMySql implements DaoPasajero{
 		
 		return pasajero;
 	}
-
+	/**
+	 * Método que devuelve un List con todos los Pasajeros
+	 * @return un objeto de tipo List que contiene todos los objetos Pasajero añadidos a la BBDD
+	 */
 	@Override
 	public List<Pasajero> listar() {
 		if(!abrirConexion()){
@@ -170,7 +191,14 @@ public class DaoPasajeroMySql implements DaoPasajero{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	/**
+	 * Método que asigna un pasajero a un coche
+	 * @paramel el ID del pasajero que se quiere asignar y el ID del coche donde quiere ser asignado.
+	 * @return Devuelve true en caso de que el coche se haya podido añadir al coche 
+	 * 		   o false si en algun caso no se puede añadir, ya sea porque no está la conexion abierta 
+	 * 			o no se ha cambiado nada en la BBDD
+	 */
 	@Override
 	public boolean aniadirPasajeroACoche(int idCoche, int idPasajero) {
 		if(!abrirConexion()){
@@ -197,7 +225,14 @@ public class DaoPasajeroMySql implements DaoPasajero{
 		}
 		return modificado;
 	}
-
+	
+	/**
+	 * Método que elimina un pasajero a un coche
+	 * @paramel el ID del pasajero que se quiere eliminar y el ID del coche donde quiere ser eliminado.
+	 * @return Devuelve true en caso de que el coche se haya podido eliminar el pasajero del coche 
+	 * 		   o false si en algun caso no se puede eliminar, ya sea porque no está la conexion abierta 
+	 * 			o no se ha cambiado nada en la BBDD
+	 */
 	@Override
 	public boolean eliminarPasajeroACoche(int idPasajero) {
 		if(!abrirConexion()){
@@ -223,7 +258,13 @@ public class DaoPasajeroMySql implements DaoPasajero{
 		}
 		return modificado;
 	}
-
+	
+	/**
+	 * Método para listar todos los pasajeros que tiene un coche
+	 * @paramel el ID del pasajero que se quiere comprobar
+	 * @return Devuelve un List de Pasajeros con si había alguno asociado
+	 * y devuelve null si no habia ninguno.
+	 */
 	@Override
 	public List<Pasajero> listarPasajerosDeUnCoche(int idCoche) {
 		if(!abrirConexion()){

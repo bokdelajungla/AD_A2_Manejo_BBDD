@@ -14,6 +14,11 @@ public class DaoCocheMySql implements DaoCoche {
 	
 	private Connection conexion;
 	
+	/**
+	 * Metodo para abrir la conexión a la BBDD
+	 * @return Devuelve true si se ha podido abrir la conexión y false si 
+	 * se ha producido algún fallo
+	 */
 	public boolean abrirConexion(){
 		String url = "jdbc:mysql://localhost:3306/bbdd";
 		String usuario = "root";
@@ -27,7 +32,11 @@ public class DaoCocheMySql implements DaoCoche {
 		}
 		return true;
 	}
-	
+	/**
+	 * Metodo para cerrar la conexión a la BBDD
+	 * @return Devuelve true si se ha podido cerrar la conexión y false si 
+	 * se ha producido algún fallo
+	 */
 	public boolean cerrarConexion(){
 		try {
 			conexion.close();
@@ -38,7 +47,13 @@ public class DaoCocheMySql implements DaoCoche {
 		return true;
 	}
 	
-
+	/**
+	 * Método que añade un Objeto Coche a la BBDD
+	 * @param coche el objeto de la clase Coche que se quiere añadir a la BBDD
+	 * @return Devuelve true en caso de que el coche se haya podido añadir a la BBDD 
+	 * 		   o false si en algun caso no se puede añadir, ya sea porque no está la conexion abierta 
+	 * 			o no se ha cambiado nada en la BBDD
+	 */
 	@Override
 	public boolean alta(Coche c) {
 		if(!abrirConexion()){
@@ -67,7 +82,12 @@ public class DaoCocheMySql implements DaoCoche {
 		}
 		return alta;
 	}
-
+	/**
+	 * Método que elimina un objeto Coche de la BBDD 
+	 * @param id el ID del coche que se quiere eliminar
+	 * @return true si se elimina de la BBDD o false en caso de que  no exista ningún coche con 
+	 * 		   el ID que se pasa como parámetro.
+	 */
 	@Override
 	public boolean baja(int id) {
 		if(!abrirConexion()){
@@ -93,7 +113,13 @@ public class DaoCocheMySql implements DaoCoche {
 		}
 		return borrado; 
 	}
-
+	
+	/**
+	 * Método para modificar un Coche 
+	 * @param el objeto Coche con los datos que queremos modificar
+	 * @return un true si ha encontrado el id del coche y false si no se ha podido
+	 * conectar o si no ha afectado a ninguna fila 
+	 */
 	@Override
 	public boolean modificar(Coche c) {
 		if(!abrirConexion()){
@@ -124,7 +150,13 @@ public class DaoCocheMySql implements DaoCoche {
 		}
 		return modificado;
 	}
-
+	
+	/**
+	 * Método para obtener un Coche 
+	 * @param el ID del coche que queremos buscar
+	 * @return coche si existía en la BBDD y null si no se ha podido realizar
+	 * la conexión o si no había ninguno con ese ID
+	 */
 	@Override
 	public Coche obtener(int id) {
 		if(!abrirConexion()){
@@ -156,7 +188,10 @@ public class DaoCocheMySql implements DaoCoche {
 		}
 		return coche;
 	}
-
+	/**
+	 * Método que devuelve un List con todos los Coches
+	 * @return un objeto de tipo List que contiene todos los objetos Coches añadidos a la BBDD
+	 */
 	@Override
 	public List<Coche> listar() {
 		if(!abrirConexion()){
