@@ -9,13 +9,13 @@ public class Pasajero implements Serializable{ //Hay que implementar Serializabl
 	private int id;
 	private String nombre;
 	private int edad;
-	private float peso;
+	private double peso;
 	
 	public Pasajero () {
 		super();
 	}
 	
-	public Pasajero (String nombre, int edad, float peso) {
+	public Pasajero (String nombre, int edad, double peso) {
 			this.nombre = nombre;
 			this.edad = edad;
 			this.peso = peso;
@@ -54,7 +54,7 @@ public class Pasajero implements Serializable{ //Hay que implementar Serializabl
 		return peso;
 	}
 
-	public void setPeso(float peso) {
+	public void setPeso(double peso) {
 		this.peso = peso;
 	}
 
