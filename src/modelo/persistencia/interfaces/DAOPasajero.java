@@ -12,5 +12,7 @@ public interface DAOPasajero {
 	public boolean modificar(Pasajero p, int id);
 	public List<Pasajero> listar();
 		
-
+	public boolean addPasajero(int idPasajero, int idCoche);
+	public boolean deletePasajero(int idPasajero, int idCoche);
+	public List<Pasajero> listPasajeros(int idCoche);
 }

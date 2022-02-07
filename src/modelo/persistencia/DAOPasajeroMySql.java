@@ -181,8 +181,7 @@ public class DAOPasajeroMySql implements DAOPasajero {
 				listaPasajeros.add(pasajero);
 			}
 		} catch (SQLException e) {
-			System.out.println("listar -> error al obtener las "
-					+ "personas");
+			System.out.println("listar -> error al obtener los pasajeros");
 			e.printStackTrace();
 		} finally {
 			cerrarConexion();
@@ -191,4 +190,92 @@ public class DAOPasajeroMySql implements DAOPasajero {
 		return listaPasajeros;
 	}
 
+	@Override
+	public boolean addPasajero(int idPasajero, int idCoche) {
+		if(!abrirConexion()){
+			return false;
+		}
+		boolean add = true;
+		
+		String query = "insert into asignaciones (ID_COCHE,ID_PASAJERO) "
+				+ " values(?,?)";
+		try {
+			//preparamos la query con valores parametrizables(?)
+			PreparedStatement ps = conexion.prepareStatement(query);
+			ps.setInt(1, idCoche);
+			ps.setInt(2, idPasajero);
+			
+			int numeroFilasAfectadas = ps.executeUpdate();
+			if(numeroFilasAfectadas == 0)
+				add = false;
+		} catch (SQLException e) {
+			System.out.println("add -> Error al añadir pasajero al coche");
+			add = false;
+			e.printStackTrace();
+		} finally{
+			cerrarConexion();
+		}
+		return add;
+	}
+
+	@Override
+	public boolean deletePasajero(int idPasajero, int idCoche) {
+		if(!abrirConexion()){
+			return false;
+		}
+		
+		boolean del = true;
+		String query = "delete from asignaciones where id_coche = ? and id_pasajero = ?";
+		try {
+			PreparedStatement ps = conexion.prepareStatement(query);
+			ps.setInt(1, idCoche);
+			ps.setInt(2, idPasajero);
+			
+			int numeroFilasAfectadas = ps.executeUpdate();
+			if(numeroFilasAfectadas == 0)
+				del = false;
+		} catch (SQLException e) {
+			del = false;
+			System.out.println("del -> No se ha podido eliminar al pasajero");
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		return del; 
+	}
+
+	@Override
+	public List<Pasajero> listPasajeros(int idCoche) {
+		if(!abrirConexion()){
+			return null;
+		}		
+		List<Pasajero> listaPasajeros = new ArrayList<>();
+		
+		String query = "SELECT * FROM pasajeros " +
+					   "WHERE id IN (SELECT id_pasajero FROM asignaciones WHERE id_coche = ?)";
+		try {
+			PreparedStatement ps = conexion.prepareStatement(query);
+			ps.setInt(1, idCoche);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				Pasajero pasajero = new Pasajero();
+				pasajero.setId(rs.getInt(1));
+				pasajero.setNombre(rs.getString(2));
+				pasajero.setEdad(rs.getInt(3));
+				pasajero.setPeso(rs.getDouble(4));
+				
+				listaPasajeros.add(pasajero);
+			}
+		} catch (SQLException e) {
+			System.out.println("list -> error al obtener los pasajeros");
+			e.printStackTrace();
+		} finally {
+			cerrarConexion();
+		}
+		
+		return listaPasajeros;
+	}
+	
 }

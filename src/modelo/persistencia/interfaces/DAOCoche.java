@@ -13,7 +13,4 @@ public interface DAOCoche {
 	public boolean modificar(Coche c, int id);
 	public List<Coche> listar();
 	
-	public boolean addPasajero(int idPasajero, int idCoche);
-	public boolean deletePasajero(int idPasajero, int idCoche);
-	public List<Pasajero> listPasajeros(int idCoche);
 }

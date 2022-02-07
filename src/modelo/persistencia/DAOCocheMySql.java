@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modelo.entidad.Coche;
-import modelo.entidad.Pasajero;
 import modelo.persistencia.interfaces.DAOCoche;
 
 public class DAOCocheMySql implements DAOCoche {
@@ -197,24 +196,6 @@ public class DAOCocheMySql implements DAOCoche {
 		}
 		
 		return listaCoches;
-	}
-
-	@Override
-	public boolean addPasajero(int idPasajero, int idCoche) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deletePasajero(int idPasajero, int idCoche) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<Pasajero> listPasajeros(int idCoche) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
